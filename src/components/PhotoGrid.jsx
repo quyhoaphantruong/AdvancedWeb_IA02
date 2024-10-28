@@ -1,9 +1,10 @@
-// /components/PhotoGrid.js
 import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchPhotos } from '../services/unsplashService';
+import { motion } from 'framer-motion'; 
 import '../styles/photoGrid.css';
+import { debounce } from '../utilities/utilities';
 
 const PhotoGrid = () => {
   const [photos, setPhotos] = useState([]);
@@ -23,21 +24,32 @@ const PhotoGrid = () => {
     loadPhotos();
   }, [page]);
 
-  const loadMorePhotos = useCallback(() => {
-    setPage((prevPage) => prevPage + 1);
-  }, []);
+  
+  const loadMorePhotos = useCallback(
+    debounce(() => setPage((prevPage) => prevPage + 1), 300),
+    []
+  );
 
   return (
     <InfiniteScroll
       dataLength={photos.length}
       next={loadMorePhotos}
       hasMore={hasMore}
+      scrollThreshold={0.7}
       loader={<p>Loading...</p>}
       endMessage={<p>No more photos to load.</p>}
     >
       <div className="photo-grid">
-        {photos.map((photo) => (
-          <div key={photo.id} className="photo-card">
+        {photos.map((photo, index) => (
+          <motion.div
+            key={photo.id}
+            className="photo-card"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05 }} 
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }} 
+          >
             <Link to={`/photos/${photo.id}`}>
               <img src={photo.urls.small} alt={photo.alt_description || 'Photo'} />
               <p>
@@ -47,7 +59,7 @@ const PhotoGrid = () => {
                 </a>
               </p>
             </Link>
-          </div>
+          </motion.div>
         ))}
       </div>
     </InfiniteScroll>
