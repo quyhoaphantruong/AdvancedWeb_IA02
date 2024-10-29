@@ -1,52 +1,84 @@
 /* /styles/photoDetail.css */
 
 .photo-detail-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: white;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.photo-detail-image {
+  width: 100%;
+  max-width: 500px;  /* Limit max size */
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  object-fit: cover;  /* Crop image gracefully if needed */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;  /* Add smooth scaling on hover */
+}
+
+.photo-detail-image:hover {
+  transform: scale(1.05);  /* Slightly enlarge image on hover */
+}
+
+.photo-detail-info {
+  text-align: center;
+  padding: 0 15px;  /* Add padding for better readability */
+}
+
+.photo-detail-info h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #333;
+  font-weight: 600;
+}
+
+.photo-detail-info p {
+  font-size: 16px;
+  margin: 8px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #007aff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #005bb5;
+  transform: translateY(-3px);  /* Add slight lift on hover */
+}
+
+@media (max-width: 768px) {
+  .photo-detail-container {
+    margin: 20px 15px;
   }
-  
+
   .photo-detail-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;  /* Ensure it scales well on small screens */
   }
-  
-  .photo-detail-info {
-    text-align: center;
-  }
-  
+
   .photo-detail-info h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 20px;
   }
-  
+
   .photo-detail-info p {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #555;
+    font-size: 14px;
   }
-  
-  .back-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007aff;
-    color: white;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
-  
-  .back-button:hover {
-    background-color: #005bb5;
-  }
-  
+}
